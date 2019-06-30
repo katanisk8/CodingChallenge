@@ -6,11 +6,13 @@
     ViewData["Title"] = "Home Page";
 }
 
-@if (SignInManager.IsSignedIn(User))
+
+@if (!SignInManager.IsSignedIn(User))
 {
+    <p>Public</p>
 
 }
 else
 {
-
+    <p>Signed-in</p>
 }
