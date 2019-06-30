@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using CodingChallenge.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using CodingChallenge.Integration;
+using CodingChallenge.UseCases;
 
 namespace CodingChallenge
 {
@@ -51,6 +53,9 @@ namespace CodingChallenge
                     options.ClientId = googleAuthNSection["client_id"];
                     options.ClientSecret = googleAuthNSection["client_secret"];
                 });
+
+            services.AddScoped<ISmartyStreetUc, SmartyStreetUc>();
+            services.AddScoped<ISmartyStreetsService, SmartyStreetsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

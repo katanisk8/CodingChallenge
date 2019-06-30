@@ -1,18 +1,30 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
 
-@{
-    ViewData["Title"] = "Home Page";
-}
+@model IndexViewModel
 
 
 @if (!SignInManager.IsSignedIn(User))
 {
-    <p>Public</p>
-
+    <h4>Please sign in using Google</h4>
 }
 else
 {
-    <p>Signed-in</p>
+    @using (Html.BeginForm("SmartyStreet", "Home", FormMethod.Post))
+    {
+        <h4>Please fill inputs below to check information about your address.</h4>
+
+        <br />
+        <br />
+        <br />
+
+        <div class="form-group">
+
+            <input id="Geocode" name="Geocode" type="text" value="@Model.Geocode" />
+
+
+
+            <input type="submit" class="btn btn-info" value="Get informations">
+        </div>
+    }
 }
