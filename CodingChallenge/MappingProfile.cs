@@ -9,6 +9,7 @@ namespace CodingChallenge
         public MappingProfile()
         {
             CreateMap<SmartyStreetViewModel, SmartyStreetsDto>();
+            CreateMap<SmartyStreetsDto, SmartyStreetViewModel>();
         }
     }
 }

@@ -1,10 +1,9 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using CodingChallenge.Models;
 using CodingChallenge.UseCases;
 using CodingChallenge.Integration.SmartyStreets;
 using AutoMapper;
-using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CodingChallenge.Controllers
 {
@@ -24,37 +23,20 @@ namespace CodingChallenge.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(new IndexViewModel { SmartyStreetViewModel = GetDefaultSmartyStreetViewModel()});
+            SmartyStreetsDto dto = _smartyStreetUc.GetSmartyStreetsDto();
+            SmartyStreetViewModel viewModel = _mapper.Map<SmartyStreetViewModel>(dto);
+
+            return View(new IndexViewModel
+            {
+                SmartyStreetViewModel = viewModel
+            });
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult Index(IndexViewModel viewModel)
         {
             return View(viewModel);
-        }
-
-        public IActionResult SmartyStreet(SmartyStreetViewModel viewModel)
-        {
-            SmartyStreetsDto dto = _mapper.Map<SmartyStreetsDto>(viewModel);
-
-            _smartyStreetUc.GetInformation(dto);
-
-            return View(nameof(HomeController.Index), viewModel);
-        }
-
-        private SmartyStreetViewModel GetDefaultSmartyStreetViewModel()
-        {
-            return new SmartyStreetViewModel
-            {
-                Geocode = true,
-                Organization = "John Doe",
-                Address1 = "Rua Padre Antonio D'Angelo 121",
-                Address2 = "Casa Verde",
-                Locality = "Sao Paulo",
-                AdministrativeArea = "SP",
-                Country = "Brazil",
-                PostalCode = "02516-050"
-            };
         }
     }
 }
