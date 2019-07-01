@@ -13,17 +13,17 @@
 else
 {
     <div class="container">
-        @if (@Model.SearchedDataVieModel != null)
+        @if (@Model.DataVieModel != null)
         {
             <h6>Please fill inputs below to check information about you:</h6>
 
-            Html.RenderPartial("~/Views/Home/SearchedData.cshtml", Model.SearchedDataVieModel);
+            Html.RenderPartial("~/Views/Home/Data.cshtml", Model.DataVieModel);
         }
-        @if (@Model.SearchedResultViewModel != null)
+        @if (@Model.ResultViewModel != null)
         {
             <h6>This informations were found using your inputs:</h6>
 
-            Html.RenderPartial("~/Views/Home/SearchedResult.cshtml", Model.SearchedResultViewModel);
+            Html.RenderPartial("~/Views/Home/Result.cshtml", Model.ResultViewModel);
         }
     </div>
 }

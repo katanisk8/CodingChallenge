@@ -1,6 +1,6 @@
 ﻿namespace CodingChallenge.Integration.DTO
 {
-    public class SearchedResultDto
+    public class ResultDto
     {
         public InformationsDto Informations { get; set; }
         public LocationDto Location { get; set; }

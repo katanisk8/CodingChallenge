@@ -2,7 +2,7 @@
 {
     public class IndexViewModel
     {
-        public SearchedDataVieModel SearchedDataVieModel { get; set; }
-        public SearchedResultViewModel SearchedResultViewModel { get; set; }
+        public DataVieModel DataVieModel { get; set; }
+        public ResultViewModel ResultViewModel { get; set; }
     }
 }

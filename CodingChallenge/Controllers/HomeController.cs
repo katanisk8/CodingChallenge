@@ -12,26 +12,26 @@ namespace CodingChallenge.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IHomeUc _homeUc;
-        private readonly ISearchedDataUc _searchedDataUc;
+        private readonly IDataUc _dataUc;
 
         public HomeController(
             IMapper mapper,
             IHomeUc homeUc,
-            ISearchedDataUc searchedDataUc)
+            IDataUc dataUc)
         {
             _mapper = mapper;
             _homeUc = homeUc;
-            _searchedDataUc = searchedDataUc;
+            _dataUc = dataUc;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            var dto = _homeUc.GetDefaultSearchedData();
-            var searchedDataVieModel = _mapper.Map<SearchedDataVieModel>(dto);
+            var dto = _homeUc.GetDefaultData();
+            var dataVieModel = _mapper.Map<DataVieModel>(dto);
             var indexViewModel = new IndexViewModel
             {
-                SearchedDataVieModel = searchedDataVieModel
+                DataVieModel = dataVieModel
             };
 
             return View(indexViewModel);
@@ -39,21 +39,21 @@ namespace CodingChallenge.Controllers
 
         [Authorize]
         [HttpPost]
-        public IActionResult FindInformations(SearchedDataVieModel viewModel)
+        public IActionResult FindInformations(DataVieModel viewModel)
         {
             if(!ModelState.IsValid)
             {
-                return View("Index", new IndexViewModel{ SearchedDataVieModel = viewModel});
+                return View("Index", new IndexViewModel{ DataVieModel = viewModel});
             }
 
-            var dto = _mapper.Map<SearchedDataDto>(viewModel);
-            var resultDto = _searchedDataUc.GetMoreInformations(dto);
-            var resultViewModel = _mapper.Map<SearchedResultViewModel>(resultDto);
+            var dto = _mapper.Map<DataDto>(viewModel);
+            var resultDto = _dataUc.GetMoreInformations(dto);
+            var resultViewModel = _mapper.Map<ResultViewModel>(resultDto);
 
             var indexViewModel = new IndexViewModel
             {
-                SearchedDataVieModel = viewModel,
-                SearchedResultViewModel = resultViewModel
+                DataVieModel = viewModel,
+                ResultViewModel = resultViewModel
             };
 
             return View("Index", indexViewModel);

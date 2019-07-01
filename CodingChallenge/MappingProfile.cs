@@ -8,8 +8,8 @@ namespace CodingChallenge
     {
         public MappingProfile()
         {
-            CreateMap<SearchedDataVieModel, SearchedDataDto>();
-            CreateMap<SearchedDataDto, SearchedDataVieModel>();
+            CreateMap<DataVieModel, DataDto>();
+            CreateMap<DataDto, DataVieModel>();
 
             CreateMap<InformationsViewModel, InformationsDto>();
             CreateMap<InformationsDto, InformationsViewModel>();
@@ -17,8 +17,8 @@ namespace CodingChallenge
             CreateMap<LocationViewModel, LocationDto>();
             CreateMap<LocationDto, LocationViewModel>();
 
-            CreateMap<SearchedResultViewModel, SearchedResultDto>();
-            CreateMap<SearchedResultDto, SearchedResultViewModel>();
+            CreateMap<ResultViewModel, ResultDto>();
+            CreateMap<ResultDto, ResultViewModel>();
         }
     }
 }

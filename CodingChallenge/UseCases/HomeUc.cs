@@ -4,14 +4,14 @@ namespace CodingChallenge.UseCases
 {
     public interface IHomeUc
     {
-        SearchedDataDto GetDefaultSearchedData();
+        DataDto GetDefaultData();
     }
 
     public class HomeUc : IHomeUc
     {
-        public SearchedDataDto GetDefaultSearchedData()
+        public DataDto GetDefaultData()
         {
-            return new SearchedDataDto
+            return new DataDto
             {
                 Address = "Tokarskiego 4, Kraków 30-054",
                 Country = "Polska"

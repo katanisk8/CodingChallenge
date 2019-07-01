@@ -4,17 +4,17 @@ using CodingChallenge.Integration.SmartyStreets;
 
 namespace CodingChallenge.UseCases
 {
-    public interface ISearchedDataUc
+    public interface IDataUc
     {
-        SearchedResultDto GetMoreInformations(SearchedDataDto dto);
+        ResultDto GetMoreInformations(DataDto dto);
     }
 
-    public class SearchedDataUc : ISearchedDataUc
+    public class DataUc : IDataUc
     {
         private readonly ISmartyStreetsService _smartyStreetsService;
         private readonly IGoogleMapsService _googleMapsService;
 
-        public SearchedDataUc(
+        public DataUc(
             ISmartyStreetsService smartyStreetsService,
             IGoogleMapsService googleMapsService)
         {
@@ -22,12 +22,12 @@ namespace CodingChallenge.UseCases
             _googleMapsService = googleMapsService;
         }
 
-        public SearchedResultDto GetMoreInformations(SearchedDataDto dto)
+        public ResultDto GetMoreInformations(DataDto dto)
         {
             var informations = _smartyStreetsService.GetInformations(dto);
             var location = _googleMapsService.GetLocalization(dto);
 
-            return new SearchedResultDto
+            return new ResultDto
             {
                 Informations = informations,
                 Location = location

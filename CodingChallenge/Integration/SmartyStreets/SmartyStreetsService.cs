@@ -8,7 +8,7 @@ namespace CodingChallenge.Integration.SmartyStreets
 {
     public interface ISmartyStreetsService
     {
-        InformationsDto GetInformations(SearchedDataDto dto);
+        InformationsDto GetInformations(DataDto dto);
     }
 
     public class SmartyStreetsService : ISmartyStreetsService
@@ -20,7 +20,7 @@ namespace CodingChallenge.Integration.SmartyStreets
             _configuration = configuration;
         }
 
-        public InformationsDto GetInformations(SearchedDataDto dto)
+        public InformationsDto GetInformations(DataDto dto)
         {
 
             IConfigurationSection smartyAuthNSection = _configuration.GetSection("Integrations:SmartyStreets");

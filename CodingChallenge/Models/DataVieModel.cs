@@ -1,8 +1,9 @@
-﻿namespace CodingChallenge.Integration.DTO
+﻿namespace CodingChallenge.Models
 {
-    public class SearchedDataDto
+    public class DataVieModel
     {
         public string Address { get; set; }
+
         public string Country { get; set; }
     }
 }

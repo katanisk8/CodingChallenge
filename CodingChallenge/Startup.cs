@@ -58,7 +58,7 @@ namespace CodingChallenge
             services.AddSingleton(mapper);
 
             services.AddScoped<IHomeUc, HomeUc>();
-            services.AddScoped<ISearchedDataUc, SearchedDataUc>();
+            services.AddScoped<IDataUc, DataUc>();
 
             services.AddScoped<ISmartyStreetsService, SmartyStreetsService>();
             services.AddScoped<IGoogleMapsService, GoogleMapsService>();

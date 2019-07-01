@@ -8,7 +8,7 @@ namespace CodingChallenge.Integration.GoogleMaps
 {
     public interface IGoogleMapsService
     {
-        LocationDto GetLocalization(SearchedDataDto dto);
+        LocationDto GetLocalization(DataDto dto);
     }
 
     public class GoogleMapsService : IGoogleMapsService
@@ -20,7 +20,7 @@ namespace CodingChallenge.Integration.GoogleMaps
             _configuration = configuration;
         }
 
-        public LocationDto GetLocalization(SearchedDataDto dto)
+        public LocationDto GetLocalization(DataDto dto)
         {
             IConfigurationSection googleMapsSection = _configuration.GetSection("Integrations:Google");
             var apiKey = googleMapsSection["ApiKey"];
