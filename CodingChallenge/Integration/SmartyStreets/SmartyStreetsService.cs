@@ -29,7 +29,7 @@ namespace CodingChallenge.Integration.SmartyStreets
 
             var client = new ClientBuilder(authId, authToken).BuildInternationalStreetApiClient();
 
-            Lookup lookup = new Lookup(dto.OneLineAddress, dto.Country);
+            Lookup lookup = new Lookup(dto.Address, dto.Country);
 
             client.Send(lookup);
 

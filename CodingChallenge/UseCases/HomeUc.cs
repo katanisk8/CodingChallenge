@@ -13,7 +13,7 @@ namespace CodingChallenge.UseCases
         {
             return new SearchedDataDto
             {
-                OneLineAddress = "Tokarskiego 4, Kraków 30-054",
+                Address = "Tokarskiego 4, Kraków 30-054",
                 Country = "Polska"
             };
         }

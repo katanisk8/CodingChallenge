@@ -29,7 +29,7 @@ namespace CodingChallenge.Integration.GoogleMaps
 
             var request = new GeocodingRequest
             {
-                Address = dto.OneLineAddress
+                Address = dto.Address
             };
             var response = new GeocodingService().GetResponse(request);
             var result = response.Results.FirstOrDefault();
