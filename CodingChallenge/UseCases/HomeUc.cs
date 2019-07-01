@@ -1,5 +1,4 @@
-﻿using CodingChallenge.Integration;
-using CodingChallenge.Integration.DTO;
+﻿using CodingChallenge.Integration.DTO;
 
 namespace CodingChallenge.UseCases
 {
@@ -14,17 +13,10 @@ namespace CodingChallenge.UseCases
         {
             return new SearchedDataDto
             {
-                OneLineAddress = "Tokarskiego 4 Kraków 30-054, Polska",
-                Geocode = true,
-                Organization = "Michal Makowej",
+                OneLineAddress = "Tokarskiego 4, Kraków 30-054",
                 Address = new AddressDto
                 {
-                    Address1 = "Tokarkiego 4",
-                    Address2 = "",
-                    Locality = "Krakow",
-                    AdministrativeArea = "Pl",
-                    Country = "Polska",
-                    PostalCode = "30-065"
+                    Country = "Polska"
                 }
             };
         }

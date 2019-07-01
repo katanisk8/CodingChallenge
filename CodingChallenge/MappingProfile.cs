@@ -14,6 +14,9 @@ namespace CodingChallenge
             CreateMap<SearchedDataVieModel, SearchedDataDto>();
             CreateMap<SearchedDataDto, SearchedDataVieModel>();
 
+            CreateMap<InformationsViewModel, InformationsDto>();
+            CreateMap<InformationsDto, InformationsViewModel>();
+
             CreateMap<LocationViewModel, LocationDto>();
             CreateMap<LocationDto, LocationViewModel>();
 

@@ -6,7 +6,7 @@ namespace CodingChallenge.UseCases
 {
     public interface ISearchedDataUc
     {
-        SearchedResultDto GetSearchedData(SearchedDataDto dto);
+        SearchedResultDto GetMoreInformations(SearchedDataDto dto);
     }
 
     public class SearchedDataUc : ISearchedDataUc
@@ -22,13 +22,14 @@ namespace CodingChallenge.UseCases
             _googleMapsService = googleMapsService;
         }
 
-        public SearchedResultDto GetSearchedData(SearchedDataDto dto)
+        public SearchedResultDto GetMoreInformations(SearchedDataDto dto)
         {
-            _smartyStreetsService.GetInformations(dto);
+            var informations = _smartyStreetsService.GetInformations(dto);
             var location = _googleMapsService.GetLocalization(dto);
 
             return new SearchedResultDto
             {
+                Informations = informations,
                 Location = location
             };
         }

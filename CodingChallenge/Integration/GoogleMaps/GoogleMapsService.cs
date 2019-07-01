@@ -47,18 +47,28 @@ namespace CodingChallenge.Integration.GoogleMaps
 
         private static Location PrepareAddress(SearchedDataDto dto)
         {
-            if (!string.IsNullOrEmpty(dto.OneLineAddress))
+            if (CheckIfMoreDataIsFilled(dto))
             {
-                return dto.OneLineAddress;
+                var address1 = dto.Address.Address1;
+                var address2 = dto.Address.Address2;
+                var locality = dto.Address.Locality;
+                var administrativeArea = dto.Address.AdministrativeArea;
+                var postalCode = dto.Address.PostalCode;
+
+                return $"{address1} {address2}, {locality}, {administrativeArea} {postalCode}";
             }
 
-            var address1 = dto.Address.Address1;
-            var address2 = dto.Address.Address2;
-            var locality = dto.Address.Locality;
-            var administrativeArea = dto.Address.AdministrativeArea;
-            var postalCode = dto.Address.PostalCode;
+            return dto.OneLineAddress;
+        }
 
-            return $"{address1} {address2}, {locality}, {administrativeArea} {postalCode}";
+        private static bool CheckIfMoreDataIsFilled(SearchedDataDto dto)
+        {
+            return !string.IsNullOrEmpty(dto.Organization) ||
+                   !string.IsNullOrEmpty(dto.Address.Address1) ||
+                   !string.IsNullOrEmpty(dto.Address.Address2) ||
+                   !string.IsNullOrEmpty(dto.Address.Locality) ||
+                   !string.IsNullOrEmpty(dto.Address.AdministrativeArea) ||
+                   !string.IsNullOrEmpty(dto.Address.PostalCode);
         }
     }
 }

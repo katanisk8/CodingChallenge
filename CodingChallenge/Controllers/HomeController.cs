@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
 using CodingChallenge.Models;
 using CodingChallenge.UseCases;
 using AutoMapper;
@@ -46,7 +47,7 @@ namespace CodingChallenge.Controllers
             }
 
             var dto = _mapper.Map<SearchedDataDto>(viewModel);
-            var resultDto = _searchedDataUc.GetSearchedData(dto);
+            var resultDto = _searchedDataUc.GetMoreInformations(dto);
             var resultViewModel = _mapper.Map<SearchedResultViewModel>(resultDto);
 
             var indexViewModel = new IndexViewModel
@@ -56,6 +57,12 @@ namespace CodingChallenge.Controllers
             };
 
             return View("Index", indexViewModel);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

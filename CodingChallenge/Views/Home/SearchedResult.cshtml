@@ -1,5 +1,9 @@
 ﻿@model SearchedResultViewModel
 
+@if (@Model.Informations != null)
+{
+    Html.RenderPartial("~/Views/Home/SmartyStreetsResult.cshtml", Model.Informations);
+}
 @if (@Model.Location != null)
 {
     Html.RenderPartial("~/Views/Home/GoogleMapsResult.cshtml", Model.Location);
