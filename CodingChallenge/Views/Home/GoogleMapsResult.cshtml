@@ -1,6 +1,9 @@
-﻿@model LocationViewModel
+﻿@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQohYbZoS3Tz_oxCiMuPaZAl--EpcgAls"></script>
+@model LocationViewModel
+
+<script src="https://maps.googleapis.com/maps/api/js?key=@Configuration["Integrations:Google:ApiKey"]"></script>
 
 <div class="form-group">
     <div class="form-group">
