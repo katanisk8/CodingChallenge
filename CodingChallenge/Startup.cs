@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CodingChallenge.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using CodingChallenge.Integration;
 using CodingChallenge.UseCases;
 using AutoMapper;
+using CodingChallenge.Integration.GoogleMaps;
+using CodingChallenge.Integration.SmartyStreets;
 
 namespace CodingChallenge
 {
@@ -51,8 +47,8 @@ namespace CodingChallenge
                     IConfigurationSection googleAuthNSection =
                         Configuration.GetSection("Authentication:Google");
 
-                    options.ClientId = googleAuthNSection["client_id"];
-                    options.ClientSecret = googleAuthNSection["client_secret"];
+                    options.ClientId = googleAuthNSection["ClientId"];
+                    options.ClientSecret = googleAuthNSection["ClientSecret"];
                 });
 
             var mappingConfig = new MapperConfiguration(mc =>
@@ -63,8 +59,11 @@ namespace CodingChallenge
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
-            services.AddScoped<ISmartyStreetUc, SmartyStreetUc>();
+            services.AddScoped<IHomeUc, HomeUc>();
+            services.AddScoped<ISearchedDataUc, SearchedDataUc>();
+
             services.AddScoped<ISmartyStreetsService, SmartyStreetsService>();
+            services.AddScoped<IGoogleMapsService, GoogleMapsService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

@@ -1,42 +1,61 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using CodingChallenge.Models;
 using CodingChallenge.UseCases;
-using CodingChallenge.Integration.SmartyStreets;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using CodingChallenge.Integration.DTO;
 
 namespace CodingChallenge.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IMapper _mapper;
-        private readonly ISmartyStreetUc _smartyStreetUc;
+        private readonly IHomeUc _homeUc;
+        private readonly ISearchedDataUc _searchedDataUc;
 
         public HomeController(
             IMapper mapper,
-            ISmartyStreetUc smartyStreetUc)
+            IHomeUc homeUc,
+            ISearchedDataUc searchedDataUc)
         {
             _mapper = mapper;
-            _smartyStreetUc = smartyStreetUc;
+            _homeUc = homeUc;
+            _searchedDataUc = searchedDataUc;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
-            SmartyStreetsDto dto = _smartyStreetUc.GetSmartyStreetsDto();
-            SmartyStreetViewModel viewModel = _mapper.Map<SmartyStreetViewModel>(dto);
-
-            return View(new IndexViewModel
+            var dto = _homeUc.GetDefaultSearchedData();
+            var searchedDataVieModel = _mapper.Map<SearchedDataVieModel>(dto);
+            var indexViewModel = new IndexViewModel
             {
-                SmartyStreetViewModel = viewModel
-            });
+                SearchedDataVieModel = searchedDataVieModel
+            };
+
+            return View(indexViewModel);
         }
 
         [Authorize]
         [HttpPost]
-        public IActionResult Index(IndexViewModel viewModel)
+        public IActionResult FindInformations(SearchedDataVieModel viewModel)
         {
-            return View(viewModel);
+            if(!ModelState.IsValid)
+            {
+                return View("Index", new IndexViewModel{ SearchedDataVieModel = viewModel});
+            }
+
+            var dto = _mapper.Map<SearchedDataDto>(viewModel);
+            var resultDto = _searchedDataUc.GetSearchedData(dto);
+            var resultViewModel = _mapper.Map<SearchedResultViewModel>(resultDto);
+
+            var indexViewModel = new IndexViewModel
+            {
+                SearchedDataVieModel = viewModel,
+                SearchedResultViewModel = resultViewModel
+            };
+
+            return View("Index", indexViewModel);
         }
     }
 }

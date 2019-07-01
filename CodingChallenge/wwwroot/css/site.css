@@ -54,3 +54,22 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
 }
+
+.form-control {
+    margin: 1px;
+    width: 70% !important
+}
+
+.btn-primary {
+    text-align: center;
+    width: 20%;
+    margin: 10px;
+}
+
+.button-div {
+    text-align: center;
+}
+
+.container {
+    text-align: left;
+}

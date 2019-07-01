@@ -1,13 +1,13 @@
-﻿using CodingChallenge.Integration.SmartyStreets;
+﻿using CodingChallenge.Integration.DTO;
 using Microsoft.Extensions.Configuration;
 using SmartyStreets;
 using SmartyStreets.InternationalStreetApi;
 
-namespace CodingChallenge.Integration
+namespace CodingChallenge.Integration.SmartyStreets
 {
     public interface ISmartyStreetsService
     {
-        void Get(SmartyStreetsDto dto);
+        void GetInformations(SearchedDataDto dto);
     }
 
     public class SmartyStreetsService : ISmartyStreetsService
@@ -19,7 +19,7 @@ namespace CodingChallenge.Integration
             _configuration = configuration;
         }
 
-        public void Get(SmartyStreetsDto dto)
+        public void GetInformations(SearchedDataDto dto)
         {
 
             IConfigurationSection smartyAuthNSection = _configuration.GetSection("Integrations:SmartyStreets");
@@ -27,27 +27,36 @@ namespace CodingChallenge.Integration
             var authToken = smartyAuthNSection["Token"];
 
             var client = new ClientBuilder(authId, authToken).BuildInternationalStreetApiClient();
-            
-            var lookup = new Lookup()
-            {
-                InputId = "ID-8675309",
-                Geocode = dto.Geocode,
-                Organization = dto.Organization,
-                Address1 = dto.Address1,
-                Address2 = dto.Address2,
-                Locality = dto.Locality,
-                AdministrativeArea = dto.AdministrativeArea,
-                Country = dto.Country,
-                PostalCode = dto.PostalCode
-            };
+
+            Lookup lookup = GetLookup(dto);
 
             //Exception: Payment Required: There is no active subscription for the account associated with the credentials submitted with the request.
             //250 lookups free
             //Why?
-            client.Send(lookup);
+            //client.Send(lookup);
 
-            var candidates = lookup.Result;
-            var firstCandidate = candidates[0];
+            //var candidates = lookup.Result;
+            //var firstCandidate = candidates[0];
+        }
+
+        private static Lookup GetLookup(SearchedDataDto dto)
+        {
+            if (!string.IsNullOrWhiteSpace(dto.OneLineAddress))
+            {
+                return new Lookup(dto.OneLineAddress, dto.Address.Country);
+            }
+
+            return new Lookup
+            {
+                Geocode = dto.Geocode,
+                Organization = dto.Organization,
+                Address1 = dto.Address.Address1,
+                Address2 = dto.Address.Address2,
+                Locality = dto.Address.Locality,
+                AdministrativeArea = dto.Address.AdministrativeArea,
+                Country = dto.Address.Country,
+                PostalCode = dto.Address.PostalCode
+            };
         }
     }
 }

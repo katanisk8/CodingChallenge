@@ -2,6 +2,7 @@
 {
     public class IndexViewModel
     {
-        public SmartyStreetViewModel SmartyStreetViewModel { get; set; }
+        public SearchedDataVieModel SearchedDataVieModel { get; set; }
+        public SearchedResultViewModel SearchedResultViewModel { get; set; }
     }
 }

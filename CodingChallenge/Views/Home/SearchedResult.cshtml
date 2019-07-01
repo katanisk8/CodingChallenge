@@ -1,0 +1,6 @@
+﻿@model SearchedResultViewModel
+
+@if (@Model.Location != null)
+{
+    Html.RenderPartial("~/Views/Home/GoogleMapsResult.cshtml", Model.Location);
+}

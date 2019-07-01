@@ -10,14 +10,18 @@
 }
 else
 {
-    <div class="col-6">
-        <h5>Please fill inputs below to check information about your address.</h5>
-
-        <br />
-
-        @if (@Model.SmartyStreetViewModel != null)
+    <div class="container">
+        @if (@Model.SearchedDataVieModel != null)
         {
-            Html.RenderPartial("~/Views/Home/SmartyStreet.cshtml", Model.SmartyStreetViewModel);
+            <h5>Please fill inputs below to check information about you:</h5>
+
+            Html.RenderPartial("~/Views/Home/SearchedData.cshtml", Model.SearchedDataVieModel);
+        }
+        @if (@Model.SearchedResultViewModel != null)
+        {
+            <h5>This informations were found using your inputs:</h5>
+
+            Html.RenderPartial("~/Views/Home/SearchedResult.cshtml", Model.SearchedResultViewModel);
         }
     </div>
 }

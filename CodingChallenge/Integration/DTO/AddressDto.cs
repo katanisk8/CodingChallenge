@@ -1,9 +1,7 @@
-﻿namespace CodingChallenge.Integration.SmartyStreets
+﻿namespace CodingChallenge.Integration.DTO
 {
-    public class SmartyStreetsDto
+    public class AddressDto
     {
-        public bool Geocode { get; set; }
-        public string Organization { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
         public string Locality { get; set; }
