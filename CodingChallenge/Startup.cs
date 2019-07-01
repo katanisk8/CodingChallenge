@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using CodingChallenge.Integration;
 using CodingChallenge.UseCases;
+using AutoMapper;
 
 namespace CodingChallenge
 {
@@ -53,6 +54,14 @@ namespace CodingChallenge
                     options.ClientId = googleAuthNSection["client_id"];
                     options.ClientSecret = googleAuthNSection["client_secret"];
                 });
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MappingProfile());
+            });
+
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddScoped<ISmartyStreetUc, SmartyStreetUc>();
             services.AddScoped<ISmartyStreetsService, SmartyStreetsService>();

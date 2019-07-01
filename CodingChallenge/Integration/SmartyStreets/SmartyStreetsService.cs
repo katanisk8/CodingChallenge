@@ -19,11 +19,6 @@ namespace CodingChallenge.Integration
             _configuration = configuration;
         }
 
-        public SmartyStreetsService(IConfiguration configuration, ISmartyStreetsService smartyStreetsService) : this(configuration)
-        {
-            _smartyStreetsService = smartyStreetsService;
-        }
-
         public void Get(SmartyStreetsDto dto)
         {
 
@@ -32,8 +27,8 @@ namespace CodingChallenge.Integration
             var authToken = smartyAuthNSection["Token"];
 
             var client = new ClientBuilder(authId, authToken).BuildInternationalStreetApiClient();
-
-            var lookup = new Lookup("Rua Padre Antonio D'Angelo 121 Casa Verde, Sao Paulo", "Brazil")
+            
+            var lookup = new Lookup()
             {
                 InputId = "ID-8675309",
                 Geocode = dto.Geocode,
@@ -46,6 +41,9 @@ namespace CodingChallenge.Integration
                 PostalCode = dto.PostalCode
             };
 
+            //Exception: Payment Required: There is no active subscription for the account associated with the credentials submitted with the request.
+            //250 lookups free
+            //Why?
             client.Send(lookup);
 
             var candidates = lookup.Result;

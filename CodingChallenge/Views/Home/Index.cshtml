@@ -6,25 +6,18 @@
 
 @if (!SignInManager.IsSignedIn(User))
 {
-    <h4>Please sign in using Google</h4>
+    <h5>Please sign in using Google</h5>
 }
 else
 {
-    @using (Html.BeginForm("SmartyStreet", "Home", FormMethod.Post))
-    {
-        <h4>Please fill inputs below to check information about your address.</h4>
+    <div class="col-6">
+        <h5>Please fill inputs below to check information about your address.</h5>
 
         <br />
-        <br />
-        <br />
 
-        <div class="form-group">
-
-            <input id="Geocode" name="Geocode" type="text" value="@Model.Geocode" />
-
-
-
-            <input type="submit" class="btn btn-info" value="Get informations">
-        </div>
-    }
+        @if (@Model.SmartyStreetViewModel != null)
+        {
+            Html.RenderPartial("~/Views/Home/SmartyStreet.cshtml", Model.SmartyStreetViewModel);
+        }
+    </div>
 }
