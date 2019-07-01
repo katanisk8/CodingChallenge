@@ -8,9 +8,6 @@ namespace CodingChallenge
     {
         public MappingProfile()
         {
-            CreateMap<AddressViewModel, AddressDto>();
-            CreateMap<AddressDto, AddressViewModel>();
-
             CreateMap<SearchedDataVieModel, SearchedDataDto>();
             CreateMap<SearchedDataDto, SearchedDataVieModel>();
 

@@ -1,80 +1,15 @@
 ﻿@model InformationsViewModel
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQohYbZoS3Tz_oxCiMuPaZAl--EpcgAls"></script>
-
 <div class="form-group">
-    <div class="form-group">
+    @foreach (var info in Model.Informations)
+    {
         <div class="form-inline">
             <div class="col-4">
-                @Html.LabelFor(x => x.AdministrativeArea)
+                @Html.Label(info.Key)
             </div>
             <div class="col-8">
-                @Html.DisplayFor(x => x.AdministrativeArea)
+                @Html.DisplayName(info.Value)
             </div>
         </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.CountryIso3)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.CountryIso3)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.Locality)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.Locality)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.PostalCode)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.PostalCode)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.PostalCodeShort)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.PostalCodeShort)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.Premise)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.Premise)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.PremiseNumber)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.PremiseNumber)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.SubAdministrativeArea)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.SubAdministrativeArea)
-            </div>
-        </div>
-        <div class="form-inline">
-            <div class="col-4">
-                @Html.LabelFor(x => x.Thoroughfare)
-            </div>
-            <div class="col-8">
-                @Html.DisplayFor(x => x.Thoroughfare)
-            </div>
-        </div>
-    </div>
+    }
 </div>

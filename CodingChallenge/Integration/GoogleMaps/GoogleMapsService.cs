@@ -14,6 +14,7 @@ namespace CodingChallenge.Integration.GoogleMaps
     public class GoogleMapsService : IGoogleMapsService
     {
         private readonly IConfiguration _configuration;
+
         public GoogleMapsService(IConfiguration configuration)
         {
             _configuration = configuration;
@@ -28,7 +29,7 @@ namespace CodingChallenge.Integration.GoogleMaps
 
             var request = new GeocodingRequest
             {
-                Address = PrepareAddress(dto)
+                Address = dto.OneLineAddress
             };
             var response = new GeocodingService().GetResponse(request);
             var result = response.Results.FirstOrDefault();
@@ -43,32 +44,6 @@ namespace CodingChallenge.Integration.GoogleMaps
             }
 
             return null;
-        }
-
-        private static Location PrepareAddress(SearchedDataDto dto)
-        {
-            if (CheckIfMoreDataIsFilled(dto))
-            {
-                var address1 = dto.Address.Address1;
-                var address2 = dto.Address.Address2;
-                var locality = dto.Address.Locality;
-                var administrativeArea = dto.Address.AdministrativeArea;
-                var postalCode = dto.Address.PostalCode;
-
-                return $"{address1} {address2}, {locality}, {administrativeArea} {postalCode}";
-            }
-
-            return dto.OneLineAddress;
-        }
-
-        private static bool CheckIfMoreDataIsFilled(SearchedDataDto dto)
-        {
-            return !string.IsNullOrEmpty(dto.Organization) ||
-                   !string.IsNullOrEmpty(dto.Address.Address1) ||
-                   !string.IsNullOrEmpty(dto.Address.Address2) ||
-                   !string.IsNullOrEmpty(dto.Address.Locality) ||
-                   !string.IsNullOrEmpty(dto.Address.AdministrativeArea) ||
-                   !string.IsNullOrEmpty(dto.Address.PostalCode);
         }
     }
 }
